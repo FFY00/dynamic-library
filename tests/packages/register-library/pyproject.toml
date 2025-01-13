@@ -1,0 +1,13 @@
+[build-system]
+build-backend = 'mesonpy'
+requires = ['meson-python']
+
+[project]
+name = 'register-library'
+version = '1.0.0'
+
+[project.entry-points.pkg_config]
+foo = 'register_library'
+
+[project.entry-points.dynamic_library]
+foo = 'register_library'

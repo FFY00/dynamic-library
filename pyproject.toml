@@ -1,0 +1,84 @@
+[build-system]
+requires = ['hatchling']
+build-backend = 'hatchling.build'
+
+[project]
+name = 'dynamic-library'
+version = '0.1.0'
+description = 'Hook to load package-provided dynamic libraries'
+readme = 'README.md'
+requires-python = '>=3.9'
+license = 'MIT'
+keywords = []
+authors = [
+  { name = 'Filipe Laíns', email = 'lains@riseup.net' },
+]
+classifiers = [
+  'Development Status :: 4 - Beta',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',
+  'Programming Language :: Python :: Implementation :: CPython',
+  'Programming Language :: Python :: Implementation :: PyPy',
+]
+dependencies = []
+
+[project.optional-dependencies]
+test = [
+  'pytest',
+  'pytest-cov >= 5',
+  'pytest-github-actions-annotate-failures',
+  'environment-helpers >= 0.2.0',
+  'patchelf',
+]
+
+[project.urls]
+Documentation = 'https://github.com/Filipe Laíns/dynamic-library#readme'
+Issues = 'https://github.com/Filipe Laíns/dynamic-library/issues'
+Source = 'https://github.com/Filipe Laíns/dynamic-library'
+
+[tool.hatch.build.targets.wheel]
+include = [
+  'dynamic_library',
+  'dynamic-library.pth',
+]
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  'mypy>=1.0.0',
+]
+[tool.hatch.envs.types.scripts]
+check = 'mypy --install-types --non-interactive {args:dynamic_library}'
+
+[tool.mypy]
+show_error_codes = true
+strict = true
+
+[tool.ruff]
+line-length = 127
+
+[tool.ruff.format]
+quote-style = 'single'
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+lines-between-types = 1
+
+[tool.coverage.run]
+source_pkgs = ['dynamic_library', 'tests']
+branch = true
+parallel = true
+
+[tool.coverage.paths]
+dynamic_library = ['dynamic_library', '*/dynamic-library/dynamic_library']
+tests = ['tests', '*/dynamic-library/tests']
+
+[tool.coverage.report]
+exclude_lines = [
+  'no cov',
+  'if __name__ == .__main__.:',
+  'if TYPE_CHECKING:',
+]

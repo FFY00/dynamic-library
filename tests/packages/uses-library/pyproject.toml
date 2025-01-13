@@ -1,0 +1,10 @@
+[build-system]
+build-backend = 'mesonpy'
+requires = ['meson-python', 'pkgconf']
+
+[project]
+name = 'uses-library'
+version = '1.0.0'
+
+[tool.meson-python.args]
+compile = ['--verbose']

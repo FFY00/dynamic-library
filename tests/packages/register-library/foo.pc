@@ -1,0 +1,8 @@
+includedir=${pcfiledir}/include
+libdir=${pcfiledir}
+
+Name: foo
+Description: foo library
+Version: 1.0.0
+Libs: -L${libdir} -lfoo
+Cflags: -I${includedir}
