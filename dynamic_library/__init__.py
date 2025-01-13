@@ -34,7 +34,7 @@ def _get_module_path(name: str) -> list[str]:
     return module.__path__
 
 
-def _find_library(entrypoint: importlib_metadata.EntryPoint) -> str:
+def _find_library(entrypoint: importlib_metadata.EntryPoint) -> str | None:
     found = []
     for path in _get_module_path(entrypoint.value):
         lib = pathlib.Path(path, f'lib{entrypoint.name}{_EXT}')
@@ -46,12 +46,14 @@ def _find_library(entrypoint: importlib_metadata.EntryPoint) -> str:
             + ', '.join(os.path(candidate) for candidate in found),
             stacklevel=2,
         )
+        return
     if len(found) == 0:
         warnings.warn(f"Didn't find object file for library {entrypoint.name!r}", stacklevel=2)
+        return
     return found[0]
 
 
 def get_libraries() -> Sequence[pathlib.Path]:
     entrypoints = importlib_metadata.entry_points(group='dynamic_library')
     sorted_entrypoints = sorted(entrypoints, key=operator.attrgetter('name'))
-    return list(map(_find_library, sorted_entrypoints))
+    return list(filter(None, map(_find_library, sorted_entrypoints)))
