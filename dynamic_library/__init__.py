@@ -21,7 +21,7 @@ else:
     import importlib_metadata
 
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 
 _EXT = '.dll' if os.name == 'nt' else sysconfig.get_config_var('SHLIB_SUFFIX')
