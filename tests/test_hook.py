@@ -18,8 +18,9 @@ def test_header_only_library(env, tmp_path, packages, monkeypatch):
     env.install_wheel(wheel)
 
     # Remove rpath, as meson insists on setting it
-    uses_library_path = os.path.join(env.scheme['platlib'], 'uses_library.cpython-313-x86_64-linux-gnu.so')
-    subprocess.check_call(['patchelf', '--remove-rpath', uses_library_path])
+    if os.name == 'posix':
+        uses_library_path = os.path.join(env.scheme['platlib'], 'uses_library.cpython-313-x86_64-linux-gnu.so')
+        subprocess.check_call(['patchelf', '--remove-rpath', uses_library_path])
 
     # Make sure uses_library.foo() works
     assert env.introspectable.call('uses_library.foo', 1, 2) == 3
