@@ -7,5 +7,4 @@ py.extension_module(
     'uses_library', 'uses_library.c',
     dependencies: libfoo,
     install: true,
-    install_rpath: '',
 )
