@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m pip install .[test]
-      - run: python -m pytest --showlocals -vv --cov --cov-report=xml
+      - run: python -m pytest --showlocals -vv
       - uses: codecov/codecov-action@v4
         if: always()
         env:
