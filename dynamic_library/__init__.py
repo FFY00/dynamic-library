@@ -11,6 +11,7 @@ import sysconfig
 import warnings
 
 from collections.abc import Sequence
+from typing import Optional
 
 import dynamic_library._import
 
@@ -34,7 +35,7 @@ def _get_module_path(name: str) -> list[str]:
     return module.__path__
 
 
-def _find_library(entrypoint: importlib_metadata.EntryPoint) -> str | None:
+def _find_library(entrypoint: importlib_metadata.EntryPoint) -> Optional[str]:
     found = []
     for path in _get_module_path(entrypoint.value):
         lib = pathlib.Path(path, f'lib{entrypoint.name}{_EXT}')
