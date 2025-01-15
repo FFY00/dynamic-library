@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sysconfig
 
 import pytest
 
@@ -19,7 +20,7 @@ def test_header_only_library(env, tmp_path, packages, monkeypatch):
 
     # Remove rpath, as meson insists on setting it
     if os.name == 'posix':
-        uses_library_path = os.path.join(env.scheme['platlib'], 'uses_library.cpython-313-x86_64-linux-gnu.so')
+        uses_library_path = os.path.join(env.scheme['platlib'], 'uses_library' + sysconfig.get_config_var('EXT_SUFFIX'))
         subprocess.check_call(['patchelf', '--remove-rpath', uses_library_path])
 
     # Make sure uses_library.foo() works
