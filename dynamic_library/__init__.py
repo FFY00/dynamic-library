@@ -25,7 +25,12 @@ else:
 __version__ = '0.1.1'
 
 
-_EXT = '.dll' if os.name == 'nt' else sysconfig.get_config_var('SHLIB_SUFFIX')
+if os.name == 'nt':
+    _EXT = '.dll'
+elif sys.platform == 'darwin':
+    _EXT = '.dylib'
+else:
+    _EXT = sysconfig.get_config_var('SHLIB_SUFFIX')
 
 
 def _get_module_path(name: str) -> list[str]:
