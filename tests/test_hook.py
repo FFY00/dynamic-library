@@ -8,7 +8,7 @@ import pytest
 import environment_helpers.build
 
 
-def test_header_only_library(env, tmp_path, packages, monkeypatch):
+def test_extension_with_dependency(env, tmp_path, packages, monkeypatch):
     env.install(['pkgconf'])
 
     # Install library package
