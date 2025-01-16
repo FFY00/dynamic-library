@@ -15,4 +15,4 @@ if os.environ.get('PYTHON_DYNAMIC_LIBRARY_DISABLE'):
     warnings.warn('Libraries registered via dynamic_library entrypoints will not be loaded!', RuntimeWarning)
 else:
     for lib in dynamic_library.get_libraries():
-        ctypes.CDLL(lib, ctypes.RTLD_GLOBAL)
+        ctypes.CDLL(lib, ctypes.RTLD_LOCAL)
