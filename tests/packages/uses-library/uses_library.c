@@ -1,5 +1,3 @@
-#include <dlfcn.h>
-
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include <unicodeobject.h>
